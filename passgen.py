@@ -34,10 +34,14 @@ def generate_password(separators_enabled=True, fake_words_enabled=False, numbers
         else:
             part_length = random.randrange(4, 8)
         
+        uppercase_part = random.randrange(2)
         for _ in range(part_length):
             if fake_words_enabled:
                 list = generateSyllables()
-                password += random.choice(list)
+                if count == uppercase_part:
+                    password += random.choice(list).upper()
+                else:
+                    password += random.choice(list)
             else:
                 password += random.choice(characters)
         
@@ -50,7 +54,7 @@ def generate_password(separators_enabled=True, fake_words_enabled=False, numbers
             if count < parts-1:
                 password += random.choice(separators)
     return password
-            
+ 
 
 selectedChoice = ""
 while selectedChoice not in ['a', 'b', 'c', '1', '2', '3']:
@@ -61,7 +65,13 @@ if selectedChoice == 'a':
     print(generate_password())
     
 if selectedChoice == 'b':
-    print(generate_password(False, False, True))
+    length = ''
+    while not length.isnumeric() and length != 'n':
+        length = input('Enter length of the password or \'n\' to choose random -> ')
+    if length.isnumeric():
+        print(generate_password(False, False, True))
+    else:
+        print(generate_password(False, False, True))
     
 if selectedChoice == 'c':
     print(generate_password(True, True, True))
