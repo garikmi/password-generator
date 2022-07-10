@@ -2,12 +2,6 @@ import random
 import string
 import re
 
-
-parts = 3
-separators = ['-', '_', '.']
-characters = string.ascii_letters + '0123456789'
-
-
 def random_word(file):
     file.seek(0)
     word = next(file)
@@ -26,9 +20,20 @@ def generateSyllables():
     return syllables
 
 
-def generate_password(separators_enabled=True, fake_words_enabled=False, numbers_enabled=True):
+def generate_password(separators_enabled=True, fake_words_enabled=False, uppercase_enabled=True, numbers_enabled=True):
     password = ""
+    
+    parts = 3
+    separators = ['-', '_', '.']
+    characters = string.ascii_letters + '0123456789'
     for count in range(parts):
+        if not uppercase_enabled and not numbers_enabled:
+            characters = string.ascii_lowercase
+        if uppercase_enabled and not numbers_enabled:
+            characters = string.ascii_letters
+        if not uppercase_enabled and numbers_enabled:
+            characters = string.ascii_lowercase + '0123456789'
+            
         if fake_words_enabled:
             part_length = 2
         else:
@@ -38,7 +43,7 @@ def generate_password(separators_enabled=True, fake_words_enabled=False, numbers
         for _ in range(part_length):
             if fake_words_enabled:
                 list = generateSyllables()
-                if count == uppercase_part:
+                if uppercase_enabled and count == uppercase_part:
                     password += random.choice(list).upper()
                 else:
                     password += random.choice(list)
@@ -57,22 +62,65 @@ def generate_password(separators_enabled=True, fake_words_enabled=False, numbers
  
 
 selectedChoice = ""
-while selectedChoice not in ['a', 'b', 'c', '1', '2', '3']:
+while selectedChoice not in ['a', 'b', 'c']:
     selectedChoice = input('Which password style would you like to generate?\na. y8b9m9_GjCl.jf4mY\nb. QDasFGoB9d2uuBq6\nc. linload-zoomplan_tytes4\n-> ')
     
     
+# TODO: Choose password length
+# TODO: Choose parts length
+# TODO: Choose custom separator(s)
+# TODO: Should include uppercase letters or words : DONE
+# TODO: Should include numbers                    : DONE
+# TODO: Should include symbols
+    
 if selectedChoice == 'a':
-    print(generate_password())
+    uppercase = ''
+    while uppercase != 'y' and uppercase != 'n':
+        uppercase = input('Would you like to include uppercase words (y/n)? -> ')
+    numbers = ''
+    while numbers != 'y' and numbers != 'n':
+        numbers = input('Would you like to include numbers (y/n)? -> ')
+    if uppercase == 'y':
+        uppercase = True
+    if uppercase == 'n':
+        uppercase = False
+    if numbers == 'y':
+        numbers = True
+    if numbers == 'n':
+        numbers = False
+    print(generate_password(True, False, uppercase, numbers))
     
 if selectedChoice == 'b':
-    length = ''
-    while not length.isnumeric() and length != 'n':
-        length = input('Enter length of the password or \'n\' to choose random -> ')
-    if length.isnumeric():
-        print(generate_password(False, False, True))
-    else:
-        print(generate_password(False, False, True))
+    uppercase = ''
+    while uppercase != 'y' and uppercase != 'n':
+        uppercase = input('Would you like to include uppercase words (y/n)? -> ')
+    numbers = ''
+    while numbers != 'y' and numbers != 'n':
+        numbers = input('Would you like to include numbers (y/n)? -> ')
+    if uppercase == 'y':
+        uppercase = True
+    if uppercase == 'n':
+        uppercase = False
+    if numbers == 'y':
+        numbers = True
+    if numbers == 'n':
+        numbers = False
+    print(generate_password(False, False, uppercase, numbers))
     
 if selectedChoice == 'c':
-    print(generate_password(True, True, True))
+    uppercase = ''
+    while uppercase != 'y' and uppercase != 'n':
+        uppercase = input('Would you like to include uppercase words (y/n)? -> ')
+    numbers = ''
+    while numbers != 'y' and numbers != 'n':
+        numbers = input('Would you like to include numbers (y/n)? -> ')
+    if uppercase == 'y':
+        uppercase = True
+    if uppercase == 'n':
+        uppercase = False
+    if numbers == 'y':
+        numbers = True
+    if numbers == 'n':
+        numbers = False
+    print(generate_password(True, True, uppercase, numbers))
     
