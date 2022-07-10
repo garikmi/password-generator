@@ -54,17 +54,15 @@ def generate_password(separators_enabled=True, fake_words_enabled=False, numbers
 
 selectedChoice = ""
 while selectedChoice not in ['a', 'b', 'c', '1', '2', '3']:
-    selectedChoice = input('Which password style would you like to generate?\na. y8b9m9_GjCl.jf4mY\nb. QDasFGoB9d2uuBq6\nc. ')
+    selectedChoice = input('Which password style would you like to generate?\na. y8b9m9_GjCl.jf4mY\nb. QDasFGoB9d2uuBq6\nc. linload-zoomplan_tytes4\n-> ')
     
     
 if selectedChoice == 'a':
-    print("generating a")
     print(generate_password())
     
 if selectedChoice == 'b':
-    print("generating b")
+    print(generate_password(False, False, True))
     
 if selectedChoice == 'c':
-    print("generating c")
     print(generate_password(True, True, True))
-
+    
