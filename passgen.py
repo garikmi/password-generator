@@ -73,54 +73,28 @@ while selectedChoice not in ['a', 'b', 'c']:
 # TODO: Should include numbers                    : DONE
 # TODO: Should include symbols
     
+
+uppercase = ''
+while uppercase != 'y' and uppercase != 'n':
+    uppercase = input('Would you like to include uppercase words (y/n)? -> ')
+numbers = ''
+while numbers != 'y' and numbers != 'n':
+    numbers = input('Would you like to include numbers (y/n)? -> ')
+if uppercase == 'y':
+    uppercase = True
+if uppercase == 'n':
+    uppercase = False
+if numbers == 'y':
+    numbers = True
+if numbers == 'n':
+    numbers = False
+
 if selectedChoice == 'a':
-    uppercase = ''
-    while uppercase != 'y' and uppercase != 'n':
-        uppercase = input('Would you like to include uppercase words (y/n)? -> ')
-    numbers = ''
-    while numbers != 'y' and numbers != 'n':
-        numbers = input('Would you like to include numbers (y/n)? -> ')
-    if uppercase == 'y':
-        uppercase = True
-    if uppercase == 'n':
-        uppercase = False
-    if numbers == 'y':
-        numbers = True
-    if numbers == 'n':
-        numbers = False
     print(generate_password(True, False, uppercase, numbers))
     
 if selectedChoice == 'b':
-    uppercase = ''
-    while uppercase != 'y' and uppercase != 'n':
-        uppercase = input('Would you like to include uppercase words (y/n)? -> ')
-    numbers = ''
-    while numbers != 'y' and numbers != 'n':
-        numbers = input('Would you like to include numbers (y/n)? -> ')
-    if uppercase == 'y':
-        uppercase = True
-    if uppercase == 'n':
-        uppercase = False
-    if numbers == 'y':
-        numbers = True
-    if numbers == 'n':
-        numbers = False
     print(generate_password(False, False, uppercase, numbers))
     
 if selectedChoice == 'c':
-    uppercase = ''
-    while uppercase != 'y' and uppercase != 'n':
-        uppercase = input('Would you like to include uppercase words (y/n)? -> ')
-    numbers = ''
-    while numbers != 'y' and numbers != 'n':
-        numbers = input('Would you like to include numbers (y/n)? -> ')
-    if uppercase == 'y':
-        uppercase = True
-    if uppercase == 'n':
-        uppercase = False
-    if numbers == 'y':
-        numbers = True
-    if numbers == 'n':
-        numbers = False
     print(generate_password(True, True, uppercase, numbers))
     
