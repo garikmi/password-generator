@@ -4,20 +4,20 @@ import string
 import re
 import linecache
 
-def random_word():
+def randomWord():
     with open('words.txt', 'r') as file:
         word = linecache.getline('words.txt', random.randrange(sum(1 for line in file)))
         file.close()
     return word
 
 def generateSyllables():
-    test = [syllable.strip('\n') for syllable in re.findall("[^aeiouy]*[aeiouy]+(?:[^aeiouy]*$|[^aeiouy](?=[^aeiouy]))?", random_word())]
+    test = [syllable.strip('\n') for syllable in re.findall("[^aeiouy]*[aeiouy]+(?:[^aeiouy]*$|[^aeiouy](?=[^aeiouy]))?", randomWord())]
     return test
 
 def generateFakeWord():
     return random.choice(generateSyllables()) + random.choice(generateSyllables())
  
-def generate_password(length, parts, separators, symbols, should_words, should_uppercase, should_numbers):
+def generatePassword(length, parts, separators, symbols, shouldWords, shouldUppercase, shouldNumbers):
     password = ""
     
     if length == 0:
@@ -34,12 +34,12 @@ def generate_password(length, parts, separators, symbols, should_words, should_u
 
     list = []
 
-    if should_uppercase:
+    if shouldUppercase:
         list.append(string.ascii_letters)
     else:
         list.append(string.ascii_lowercase)
     
-    if should_numbers:
+    if shouldNumbers:
         list.append("0123456789")
     
     if len(symbols) > 0:
@@ -69,12 +69,12 @@ def generate_password(length, parts, separators, symbols, should_words, should_u
     
 
 def main():
-    print("\nTesting:\nlen: 10, parts: 2, not uppercase, not numbers -> " + generate_password(10, 2, '', '', True, False, False))
-    print("len: 10, parts: 3, not uppercase, not numbers -> " + generate_password(10, 3, None, '', True, False, False))
-    print("len: 10, parts: 4, not uppercase, not numbers -> " + generate_password(10, 4, None, '', True, False, False))
-    print("len: 10, parts: 9, not uppercase, not numbers -> " + generate_password(10, 9, None, '', True, False, False))
-    print("len: 10, parts: 10, not uppercase, not numbers -> " + generate_password(10, 10, None, '', True, False, False))
-    print("len: 10, parts: 0, not uppercase, not numbers -> " + generate_password(10, 0, None, '', True, False, False))
+    print("\nTesting:\nlen: 10, parts: 2, not uppercase, not numbers -> " + generatePassword(10, 2, '', '', True, False, False))
+    print("len: 10, parts: 3, not uppercase, not numbers -> " + generatePassword(10, 3, None, '', True, False, False))
+    print("len: 10, parts: 4, not uppercase, not numbers -> " + generatePassword(10, 4, None, '', True, False, False))
+    print("len: 10, parts: 9, not uppercase, not numbers -> " + generatePassword(10, 9, None, '', True, False, False))
+    print("len: 10, parts: 10, not uppercase, not numbers -> " + generatePassword(10, 10, None, '', True, False, False))
+    print("len: 10, parts: 0, not uppercase, not numbers -> " + generatePassword(10, 0, None, '', True, False, False))
     
 #   uppercase = ''
 #   while uppercase != 'y' and uppercase != 'n':
@@ -92,13 +92,13 @@ def main():
 #       numbers = False
 #   
 #   if selectedChoice == 'a':
-#       print(generate_password(True, False, uppercase, numbers))
+#       print(generatePassword(True, False, uppercase, numbers))
 #   
 #   if selectedChoice == 'b':
-#       print(generate_password(False, False, uppercase, numbers))
+#       print(generatePassword(False, False, uppercase, numbers))
 #   
 #   if selectedChoice == 'c':
-#       print(generate_password(True, True, uppercase, numbers))
+#       print(generatePassword(True, True, uppercase, numbers))
         
 if __name__ == "__main__":
     main()
