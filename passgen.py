@@ -7,6 +7,7 @@ import linecache
 def randomWord():
     with open('words.txt', 'r') as file:
         word = linecache.getline('words.txt', random.randrange(sum(1 for line in file)))
+        word = linecache.getline('words.txt', random.randrange(sum(1 for line in file))).strip('\n')
         file.close()
     return word
 
