@@ -11,8 +11,10 @@ def randomWord():
     return word
 
 def generateSyllables():
-    test = [syllable.strip('\n') for syllable in re.findall("[^aeiouy]*[aeiouy]+(?:[^aeiouy]*$|[^aeiouy](?=[^aeiouy]))?", randomWord())]
-    return test
+    syllables = []
+    while not syllables:
+        syllables = [syllable.strip('\n') for syllable in re.findall("[^aeiouy]*[aeiouy]+(?:[^aeiouy]*$|[^aeiouy](?=[^aeiouy]))?", randomWord())]
+    return syllables
 
 def generateFakeWord():
     return random.choice(generateSyllables()) + random.choice(generateSyllables())
