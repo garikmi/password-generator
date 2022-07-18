@@ -1,27 +1,34 @@
-import math
+from os import sep
 import random
 import string
 import re
 import linecache
 
-def randomWord():
+
+def random_word():
     with open('words.txt', 'r') as file:
         word = linecache.getline('words.txt', random.randrange(sum(1 for line in file))).strip('\n')
         file.close()
     return word
 
-def generateSyllables():
+
+def generate_syllables():
     syllables = []
     while not syllables:
-        syllables = [syllable.strip('\n') for syllable in re.findall("[^aeiouy]*[aeiouy]+(?:[^aeiouy]*$|[^aeiouy](?=[^aeiouy]))?", randomWord())]
+        syllables = [syllable.strip('\n') for syllable in re.findall("[^aeiouy]*[aeiouy]+(?:[^aeiouy]*$|[^aeiouy](?=["
+                                                                     "^aeiouy]))?", random_word())]
     return syllables
 
-def generateFakeWord():
-    return random.choice(generateSyllables()) + random.choice(generateSyllables())
- 
-def generatePassword(length, parts, separators, symbols, shouldWords, shouldUppercase, shouldNumbers):
-    password = ""
-    
+
+def generate_fake_word():
+    return random.choice(generate_syllables()) + random.choice(generate_syllables())
+
+
+# Enter None for default separators or symbols.
+# Enter '' to skip separators or symbols.
+def generate_password(length, parts, separators, symbols, should_words, should_uppercase, should_numbers):
+    password = ''
+
     if length == 0:
         length = random.randrange(5, 32)
     if parts is None:
@@ -30,78 +37,56 @@ def generatePassword(length, parts, separators, symbols, shouldWords, shouldUppe
         separators = '-._'
     if symbols is None:
         symbols = '!@#$%&*()_-+=[]:;?'
-        
-    everyStep = round(length / (1 if parts == 0 else parts))
-    countSeparators = 0
 
-    list = []
+    every_step = round(length / (1 if parts == 0 else parts))
+    count_separators = 0
 
-    if shouldUppercase:
-        list.append(string.ascii_letters)
+    collection = []
+
+    if should_uppercase:
+        collection.append(string.ascii_letters)
     else:
-        list.append(string.ascii_lowercase)
-    
-    if shouldNumbers:
-        list.append("0123456789")
-    
+        collection.append(string.ascii_lowercase)
+
+    if should_numbers:
+        collection.append('0123456789')
+
     if len(symbols) > 0:
-        list.append(symbols)
-        
+        collection.append(symbols)
+
     for index in range(0, length):
-        password += random.choice(list[random.randrange(0, len(list))])
-        if len(separators) > 0 and ((index+1) % everyStep) == 0 and index+1 != length and countSeparators < parts-1:
-            countSeparators += 1
+        password += random.choice(collection[random.randrange(0, len(collection))])
+        if len(separators) > 0 and ((index+1) % every_step) == 0 and index+1 != length and count_separators < parts-1:
+            count_separators += 1
             password += random.choice(separators)
-    
+
     return password
 
 
-#selectedChoice = ""
-#while selectedChoice not in ['a', 'b', 'c']:
-#   selectedChoice = input('Which password style would you like to generate?\na. y8b9m9_GjCl.jf4mY\nb. QDasFGoB9d2uuBq6\nc. linload-zoomplan_tytes4\n-> ')
-    
-    
-# TODO: Choose password length                    : DONE
-# TODO: Choose parts length                       : DONE
-# TODO: Choose custom separator(s)                : DONE
-# TODO: Should include uppercase letters or words : DONE
-# TODO: Should include numbers                    : DONE
-# TODO: Should include symbols                    : DONE
-# TODO: Should include fake words                 :
-    
+def generate_word_password(parts, separators, should_uppercase, should_numbers):
+    password = ''
+
+    if parts == 0:
+        parts = random.randrange(2, 6)
+    if separators is None:
+        separators = '-._'
+
+    for index in range(parts):
+        if should_numbers and bool(random.getrandbits(1)):
+            password += generate_fake_word().upper()
+        else:
+            password += generate_fake_word()
+        if should_numbers:
+            password += random.choice('0123456789')
+        if index+1 < parts and len(separators) > 0:
+            password += random.choice(separators)
+
+    return password
+
 
 def main():
-    print("\nTesting:\nlen: 10, parts: 2, not uppercase, not numbers -> " + generatePassword(10, 2, '', '', True, False, False))
-    print("len: 10, parts: 3, not uppercase, not numbers -> " + generatePassword(10, 3, None, '', True, False, False))
-    print("len: 10, parts: 4, not uppercase, not numbers -> " + generatePassword(10, 4, None, '', True, False, False))
-    print("len: 10, parts: 9, not uppercase, not numbers -> " + generatePassword(10, 9, None, '', True, False, False))
-    print("len: 10, parts: 10, not uppercase, not numbers -> " + generatePassword(10, 10, None, '', True, False, False))
-    print("len: 10, parts: 0, not uppercase, not numbers -> " + generatePassword(10, 0, None, '', True, False, False))
-    
-#   uppercase = ''
-#   while uppercase != 'y' and uppercase != 'n':
-#       uppercase = input('Would you like to include uppercase words (y/n)? -> ')
-#   numbers = ''
-#   while numbers != 'y' and numbers != 'n':
-#       numbers = input('Would you like to include numbers (y/n)? -> ')
-#   if uppercase == 'y':
-#       uppercase = True
-#   if uppercase == 'n':
-#       uppercase = False
-#   if numbers == 'y':
-#       numbers = True
-#   if numbers == 'n':
-#       numbers = False
-#   
-#   if selectedChoice == 'a':
-#       print(generatePassword(True, False, uppercase, numbers))
-#   
-#   if selectedChoice == 'b':
-#       print(generatePassword(False, False, uppercase, numbers))
-#   
-#   if selectedChoice == 'c':
-#       print(generatePassword(True, True, uppercase, numbers))
-        
+    pass
+
+
 if __name__ == "__main__":
     main()
-    
