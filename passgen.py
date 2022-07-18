@@ -1,4 +1,3 @@
-from os import sep
 import random
 import string
 import re
@@ -72,7 +71,7 @@ def generate_word_password(parts, separators, should_uppercase, should_numbers):
         separators = '-._'
 
     for index in range(parts):
-        if should_numbers and bool(random.getrandbits(1)):
+        if should_uppercase and bool(random.getrandbits(1)):
             password += generate_fake_word().upper()
         else:
             password += generate_fake_word()
