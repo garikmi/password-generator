@@ -4,24 +4,25 @@ import passgen
 def main():
     password_style = ''
     while password_style != '1' and password_style != '2' and password_style != 'n':
-        password_style = input('1. Dl4_053_U719\n2. TEVA8-tocmoyen5-HASPMU6\nWhich password style would you like to generate?\n-> ')
+        password_style = input('1. Dl4_053_U719\n2. TEVA8-tocmoyen5-HASPMU6\nWhich password style would you like'
+                               'to generate?\n-> ')
     
     if password_style == '1':
+        password_length = 0
         while True:
-            password_length = 0
             try:
                 password_length = int(input('What should be the length of the password? (0 for random)\n-> '))
-            except:
-                print('Please enter a valid input.')
+            except ValueError:
+                print('Please enter a number.')
             else:
                 break
 
+        password_parts = 0
         while True:
-            password_parts = 0
             try:
                 password_parts = int(input('Into how many parts should the password be split?\n-> '))
-            except:
-                print('Please enter a valid input.')
+            except ValueError:
+                print('Please enter a number.')
             else:
                 break
 
@@ -59,8 +60,8 @@ def main():
         while password_parts <= 0:
             try:
                 password_parts = int(input('How many words should the password have? (0 for random)\n-> '))
-            except:
-                print('Please enter a valid input.')
+            except ValueError:
+                print('Please enter a number.')
             else:
                 break
 
