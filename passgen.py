@@ -25,7 +25,7 @@ def generate_fake_word():
 
 # Enter None for default separators or symbols.
 # Enter '' to skip separators or symbols.
-def generate_password(length, parts, separators, symbols, should_words, should_uppercase, should_numbers):
+def generate_password(length, parts, separators, symbols, should_uppercase, should_numbers):
     password = ''
 
     if length == 0:
@@ -81,11 +81,3 @@ def generate_word_password(parts, separators, should_uppercase, should_numbers):
             password += random.choice(separators)
 
     return password
-
-
-def main():
-    pass
-
-
-if __name__ == "__main__":
-    main()
