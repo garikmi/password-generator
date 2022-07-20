@@ -1,13 +1,11 @@
 import random
 import string
 import re
-import linecache
+import words_dictionary
 
 
 def random_word():
-    with open('words.txt', 'r') as file:
-        word = linecache.getline('words.txt', random.randrange(sum(1 for line in file))).strip('\n')
-        file.close()
+    word = random.choice(words_dictionary.words)
     return word
 
 
