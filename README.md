@@ -5,4 +5,5 @@ It can generate passwords out of random characters and passwords with words that
 Examples:
 
 Random Password: iYG5w_2M3EO_302E0_0pm16
+
 Fake Word Password: LYCA.LASAI.SETE.zedde
