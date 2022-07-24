@@ -79,3 +79,4 @@ def generate_word_password(parts, separators, should_uppercase, should_numbers):
             password += random.choice(separators)
 
     return password
+
